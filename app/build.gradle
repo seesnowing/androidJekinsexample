@@ -14,15 +14,42 @@ android {
 
     signingConfigs {
 
+        debug{
+            storeFile file("../app_key.jks")
+            storePassword "123456"
+            keyAlias "key0"
+            keyPassword "123456"
+        }
+
         release {
             storeFile file("../app_key.jks")
             storePassword "123456"
-            keyAlias "k0"
+            keyAlias "key0"
             keyPassword "123456"
         }
     }
 
+    lintOptions {
+        abortOnError false
+    }
+
     buildTypes {
+
+
+        debug {
+            // ZipAlignEnabled优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
+            // 混淆
+            minifyEnabled true
+            debuggable true
+            testCoverageEnabled false
+            // 加载默认混淆配置文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+
         release {
             // 不显示Log
             buildConfigField "boolean", "LOG_DEBUG", "false"
@@ -38,8 +65,12 @@ android {
             // 加载默认混淆配置文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+
     }
 }
+
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
