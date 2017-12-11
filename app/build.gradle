@@ -13,12 +13,6 @@ android {
     }
 
     signingConfigs {
-        debug {
-            storeFile file("../app_key.jks")
-            storePassword "123456"
-            keyAlias "k0"
-            keyPassword "123456"
-        }
 
         release {
             storeFile file("../app_key.jks")
