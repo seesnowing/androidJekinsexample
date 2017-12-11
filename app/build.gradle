@@ -11,9 +11,37 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        debug {
+            storeFile file("../app_key.jks")
+            storePassword "123456"
+            keyAlias "k0"
+            keyPassword "123456"
+        }
+
+        release {
+            storeFile file("../app_key.jks")
+            storePassword "123456"
+            keyAlias "k0"
+            keyPassword "123456"
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+
+            // ZipAlignEnabled优化
+            zipAlignEnabled true
+
+            // 移除无用的resource文件
+            shrinkResources true
+            testCoverageEnabled false
+            // 混淆
+            minifyEnabled true
+            // 加载默认混淆配置文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
